@@ -1,0 +1,33 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for using Swagger with Echo.
+  title: Go Sample Backend
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: User can login and get user data with access token.
+      parameters:
+      - description: Input email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: Input password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Login user.
+swagger: "2.0"

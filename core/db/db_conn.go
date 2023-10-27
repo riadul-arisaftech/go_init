@@ -1,0 +1,87 @@
+package db
+
+import (
+	"fmt"
+	"go_sample/core/config"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
+	"log"
+)
+
+var DB *gorm.DB
+
+type Configuration struct {
+	Driver     string
+	Name       string
+	User       string
+	Password   string
+	Host       string
+	Port       string
+	DBLogLevel logger.LogLevel
+}
+
+func NewConfiguration(config *config.Configuration) *Configuration {
+	logLevelMap := map[string]logger.LogLevel{
+		"Silent": logger.Silent,
+		"Error":  logger.Error,
+		"Warn":   logger.Warn,
+		"Info":   logger.Info,
+	}
+	configs := &Configuration{
+		Driver:   config.Database.Driver,
+		Name:     config.Database.Name,
+		User:     config.Database.Username,
+		Password: config.Database.Password,
+		Host:     config.Database.Host,
+		Port:     config.Database.Port,
+	}
+	configs.DBLogLevel = logLevelMap["Info"]
+	return configs
+}
+
+type TableNameReplacer struct{}
+
+func (r TableNameReplacer) Replace(name string) string {
+	if len(name) < 4 {
+		return name
+	}
+	const postfix = "Tbl"
+	const postfixCharacters = len(postfix)
+	lastCharacters := name[len(name)-postfixCharacters:]
+	if lastCharacters == postfix {
+		return name[0 : len(name)-postfixCharacters]
+	}
+	return name
+}
+
+// InitDB opens a database and saves the reference to `Database` struct.
+func InitDB(config *Configuration) *gorm.DB {
+	var err error
+
+	switch config.Driver {
+	case "postgres":
+		dbConString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
+			config.Host,
+			config.Port,
+			config.User,
+			config.Name,
+			config.Password,
+		)
+		DB, err = gorm.Open(postgres.Open(dbConString), &gorm.Config{
+			Logger: logger.Default.LogMode(config.DBLogLevel),
+			NamingStrategy: schema.NamingStrategy{
+				NameReplacer: TableNameReplacer{}, // use name replacer to change struct/field name before convert it to db name
+			},
+		})
+
+		if err != nil {
+			log.Printf("Error when connecting to postgres db, %s", err)
+		}
+	default:
+		panic("Invalid DB Driver")
+	}
+
+	return DB
+}
