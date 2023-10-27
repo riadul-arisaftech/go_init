@@ -1,8 +1,8 @@
 package tests
 
 import (
+	"github.com/go_sample/core/utils"
 	"github.com/stretchr/testify/require"
-	"go_sample/core/utils"
 	"golang.org/x/crypto/bcrypt"
 	"testing"
 )

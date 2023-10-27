@@ -95,7 +95,7 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
-	"go_sample/api/interfaces"
+	"github.com/go_sample/api/interfaces"
 )
 
 type %sHandlers struct {
@@ -120,7 +120,7 @@ func getServiceContent(modeName, iServiceName string) string {
 	return fmt.Sprintf(
 		`package services
 
-import "go_sample/api/interfaces"
+import "github.com/go_sample/api/interfaces"
 
 type %sService struct {
 }
@@ -140,8 +140,8 @@ func getRouteContent(modeName string) string {
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
-	"go_sample/api/handlers"
-	"go_sample/api/services"
+	"github.com/go_sample/api/handlers"
+	"github.com/go_sample/api/services"
 )
 
 func %sRoutes(route *echo.Group) {

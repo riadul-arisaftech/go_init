@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go_sample/core/config"
+	"github.com/go_sample/core/config"
 	"os"
 )
 

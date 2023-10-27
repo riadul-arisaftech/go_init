@@ -2,13 +2,13 @@ package api
 
 import (
 	"fmt"
+	"github.com/go_sample/api/middlewares"
+	"github.com/go_sample/api/routes"
+	"github.com/go_sample/core/config"
+	"github.com/go_sample/core/token"
+	"github.com/go_sample/database"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"go_sample/api/middlewares"
-	"go_sample/api/routes"
-	"go_sample/core/config"
-	"go_sample/core/token"
-	"go_sample/database"
 )
 
 type HttpServer struct {

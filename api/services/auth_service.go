@@ -3,9 +3,9 @@ package services
 import (
 	"context"
 	"errors"
-	"go_sample/api/interfaces"
-	"go_sample/core/token"
-	"go_sample/database"
+	"github.com/go_sample/api/interfaces"
+	"github.com/go_sample/core/token"
+	"github.com/go_sample/database"
 )
 
 type AuthService struct {

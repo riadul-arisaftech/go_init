@@ -1,9 +1,9 @@
 package routes
 
 import (
+	"github.com/go_sample/core/token"
+	"github.com/go_sample/database"
 	"github.com/labstack/echo/v4"
-	"go_sample/core/token"
-	"go_sample/database"
 )
 
 type RouteGroup struct {

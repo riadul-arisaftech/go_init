@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/go-gormigrate/gormigrate/v2"
-	"go_sample/database/migration"
+	"github.com/go_sample/database/migration"
 	"gorm.io/gorm"
 )
 

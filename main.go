@@ -1,10 +1,10 @@
 package main
 
 import (
-	"go_sample/api"
-	"go_sample/core/config"
-	"go_sample/core/db"
-	"go_sample/database"
+	"github.com/go_sample/api"
+	"github.com/go_sample/core/config"
+	"github.com/go_sample/core/db"
+	"github.com/go_sample/database"
 	"log"
 	"time"
 )

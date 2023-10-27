@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"go_sample/core/config"
+	"github.com/go_sample/core/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

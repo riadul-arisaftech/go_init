@@ -3,8 +3,8 @@ package handlers
 import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
+	"github.com/go_sample/api/interfaces"
 	"github.com/labstack/echo/v4"
-	"go_sample/api/interfaces"
 )
 
 type AuthHandlers struct {
