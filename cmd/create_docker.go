@@ -12,6 +12,11 @@ func main() {
 	content := fmt.Sprintf(`version: '3'
 
 services:
+  redis:
+    image: %s
+    ports:
+      - '6379:%s'
+
   postgres:
     container_name: %s
     image: %s
@@ -20,7 +25,15 @@ services:
       - POSTGRES_PASSWORD=%s
     ports:
       - '5432:%s'
-`, conf.Docker.Postgres.Container, conf.Docker.Postgres.Image, conf.Database.Username, conf.Database.Password, conf.Database.Port)
+`,
+		conf.Docker.Redis.Image,
+		conf.Redis.Port,
+		conf.Docker.Postgres.Container,
+		conf.Docker.Postgres.Image,
+		conf.Database.Username,
+		conf.Database.Password,
+		conf.Database.Port,
+	)
 
 	// Create the migration file
 	fileName := fmt.Sprintf("%s/docker-compose.yaml", "./")

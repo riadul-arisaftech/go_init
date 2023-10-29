@@ -1,4 +1,6 @@
 docker:
+  redis:
+    image: redis:7.2.1
   postgres:
     container: sample-go
     image: postgres:15-alpine

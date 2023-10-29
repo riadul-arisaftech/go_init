@@ -15,9 +15,13 @@ type Configuration struct {
 }
 
 type Docker struct {
+	Redis    RedisD   `mapstructure:"redis"`
 	Postgres Postgres `mapstructure:"postgres"`
 }
 
+type RedisD struct {
+	Image string `mapstructure:"image"`
+}
 type Postgres struct {
 	Container string `mapstructure:"container"`
 	Image     string `mapstructure:"image"`
