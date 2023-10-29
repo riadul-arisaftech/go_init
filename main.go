@@ -4,9 +4,7 @@ import (
 	"github.com/go_sample/api"
 	"github.com/go_sample/core/config"
 	"github.com/go_sample/core/db"
-	"github.com/go_sample/database"
-	"log"
-	"time"
+	"github.com/go_sample/database/repository"
 )
 
 // @title Go Sample Backend
@@ -19,18 +17,8 @@ func main() {
 
 	dbConfig := db.NewConfiguration(conf)
 	db := db.InitDB(dbConfig)
+	store := repository.NewStore(db)
 
-	sqlDB, _ := db.DB()
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(70)
-	sqlDB.SetConnMaxLifetime(time.Hour)
-
-	// DB migrations
-	if err := database.Migrate(db); err != nil {
-		log.Println(err)
-		panic(err.Error())
-	}
-
-	server := api.NewServer(conf, database.NewStore(db))
+	server := api.NewServer(conf, store)
 	server.Run()
 }
