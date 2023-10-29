@@ -9,11 +9,11 @@ import (
 var configuration *Configuration
 var once sync.Once
 
-func All() *Configuration {
+func All(path string) *Configuration {
 	once.Do(func() {
 		viper.SetConfigName("config")
 		viper.SetConfigType("yaml")
-		viper.AddConfigPath(".")
+		viper.AddConfigPath(path)
 
 		viper.AutomaticEnv()
 

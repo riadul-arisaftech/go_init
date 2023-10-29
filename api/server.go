@@ -6,6 +6,7 @@ import (
 	"github.com/go_sample/api/routes"
 	"github.com/go_sample/core/config"
 	"github.com/go_sample/core/token"
+	"github.com/go_sample/core/workers"
 	"github.com/go_sample/database/repository"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -17,7 +18,7 @@ type HttpServer struct {
 	Echo   *echo.Echo
 }
 
-func NewServer(config *config.Configuration, store repository.Store) *HttpServer {
+func NewServer(config *config.Configuration, store repository.Store, dist workers.TaskDistributor) *HttpServer {
 	tokenMaker, err := token.NewPasetoMaker(config.Token.SecretKey)
 	if err != nil {
 		panic(fmt.Sprintf("cannot create token maker %s", err.Error()))
@@ -27,7 +28,7 @@ func NewServer(config *config.Configuration, store repository.Store) *HttpServer
 	echo.Use(middleware.CORS())
 	echo.Use(middlewares.LoggerMiddleware())
 
-	route := routes.NewRoutes(echo, store, tokenMaker)
+	route := routes.NewRoutes(echo, store, tokenMaker, dist)
 	route.Routes()
 
 	return &HttpServer{

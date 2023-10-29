@@ -9,7 +9,7 @@ import (
 
 func (r RouteGroup) AuthRoutes(route *echo.Group) {
 	val := validator.New()
-	authService := services.NewAuthService(r.Store, r.TokenMaker)
+	authService := services.NewAuthService(r.Store, r.TokenMaker, r.Distributor)
 	authHandlers := handlers.NewAuthHandler(val, authService)
 
 	// routes

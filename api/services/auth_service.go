@@ -3,18 +3,21 @@ package services
 import (
 	"github.com/go_sample/api/interfaces"
 	"github.com/go_sample/core/token"
+	"github.com/go_sample/core/workers"
 	"github.com/go_sample/database/repository"
 )
 
 type AuthService struct {
-	Store repository.Store
-	Token *token.Maker
+	Store       repository.Store
+	Token       *token.Maker
+	Distributor workers.TaskDistributor
 }
 
-func NewAuthService(store repository.Store, maker *token.Maker) interfaces.IAuthService {
+func NewAuthService(store repository.Store, maker *token.Maker, dist workers.TaskDistributor) interfaces.IAuthService {
 	return &AuthService{
-		Store: store,
-		Token: maker,
+		Store:       store,
+		Token:       maker,
+		Distributor: dist,
 	}
 }
 

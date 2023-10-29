@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	conf := config.All()
+	conf := config.All(".")
 
 	content := fmt.Sprintf(`version: '3'
 
