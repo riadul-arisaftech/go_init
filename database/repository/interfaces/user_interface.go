@@ -1,6 +1,6 @@
-package repository
+package interfaces
 
-type Store interface {
+type IUserRepo interface {
 	CreateUser() error
 	ReadUser() error
 	UpdateUser() error

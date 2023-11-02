@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/go_sample/database/migration"
+	"github.com/go_sample/database/repository/interfaces"
 	"gorm.io/gorm"
 	"log"
 	"time"
@@ -11,7 +12,7 @@ type GormStore struct {
 	conn *gorm.DB
 }
 
-func NewStore(db *gorm.DB) Store {
+func NewStore(db *gorm.DB) interfaces.IStore {
 	sqlDB, _ := db.DB()
 	sqlDB.SetMaxIdleConns(10)
 	sqlDB.SetMaxOpenConns(70)

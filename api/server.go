@@ -7,18 +7,18 @@ import (
 	"github.com/go_sample/core/config"
 	"github.com/go_sample/core/token"
 	"github.com/go_sample/core/workers"
-	"github.com/go_sample/database/repository"
+	"github.com/go_sample/database/repository/interfaces"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 type HttpServer struct {
 	Config *config.Configuration
-	Store  repository.Store
+	Store  interfaces.IStore
 	Echo   *echo.Echo
 }
 
-func NewServer(config *config.Configuration, store repository.Store, dist workers.TaskDistributor) *HttpServer {
+func NewServer(config *config.Configuration, store interfaces.IStore, dist workers.TaskDistributor) *HttpServer {
 	tokenMaker, err := token.NewPasetoMaker(config.Token.SecretKey)
 	if err != nil {
 		panic(fmt.Sprintf("cannot create token maker %s", err.Error()))
