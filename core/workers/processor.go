@@ -5,7 +5,7 @@ import (
 	"github.com/go_sample/core/config"
 	"github.com/go_sample/core/mail"
 	"github.com/go_sample/core/utils"
-	"github.com/go_sample/database/repository/user"
+	"github.com/go_sample/database/repository/irepo"
 	"github.com/hibiken/asynq"
 	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog/log"
@@ -18,12 +18,12 @@ const (
 
 type RedisTaskProcessor struct {
 	server *asynq.Server
-	store  user.Store
+	store  irepo.IStore
 	mailer mail.EmailSender
 	config *config.Configuration
 }
 
-func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store user.Store, mailer mail.EmailSender, config *config.Configuration) TaskProcessor {
+func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store irepo.IStore, mailer mail.EmailSender, config *config.Configuration) TaskProcessor {
 	logger := utils.NewLogger()
 	redis.SetLogger(logger)
 
@@ -55,7 +55,7 @@ func (processor *RedisTaskProcessor) Start() error {
 	return processor.server.Start(mux)
 }
 
-func RunTaskProcessor(config *config.Configuration, redisOpt asynq.RedisClientOpt, store user.Store) {
+func RunTaskProcessor(config *config.Configuration, redisOpt asynq.RedisClientOpt, store irepo.IStore) {
 	mailer := mail.NewGmailSender(config.Email.SenderName, config.Email.SenderAddress, config.Email.SenderPassword)
 	taskProcessor := NewRedisTaskProcessor(redisOpt, store, mailer, config)
 	log.Info().Msg("start task processor")

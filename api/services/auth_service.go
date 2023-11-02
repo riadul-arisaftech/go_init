@@ -4,16 +4,16 @@ import (
 	"github.com/go_sample/api/interfaces"
 	"github.com/go_sample/core/token"
 	"github.com/go_sample/core/workers"
-	"github.com/go_sample/database/repository/user"
+	"github.com/go_sample/database/repository/irepo"
 )
 
 type AuthService struct {
-	Store       user.Store
+	Store       irepo.IStore
 	Token       *token.Maker
 	Distributor workers.TaskDistributor
 }
 
-func NewAuthService(store user.Store, maker *token.Maker, dist workers.TaskDistributor) interfaces.IAuthService {
+func NewAuthService(store irepo.IStore, maker *token.Maker, dist workers.TaskDistributor) interfaces.IAuthService {
 	return &AuthService{
 		Store:       store,
 		Token:       maker,

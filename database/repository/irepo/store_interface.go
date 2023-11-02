@@ -1,4 +1,4 @@
-package interfaces
+package irepo
 
 type IStore interface {
 	IUserRepo
