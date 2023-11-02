@@ -39,8 +39,10 @@ func NewServer(config *config.Configuration, store irepo.IStore, dist workers.Ta
 }
 
 func (s *HttpServer) Run() {
-	err := s.Echo.Start(fmt.Sprintf("%s:%v", s.Config.Server.Host, s.Config.Server.Port))
-	if err != nil {
-		panic(err.Error())
-	}
+	go func() {
+		err := s.Echo.Start(fmt.Sprintf("%s:%v", s.Config.Server.Host, s.Config.Server.Port))
+		if err != nil {
+			panic(err.Error())
+		}
+	}()
 }
